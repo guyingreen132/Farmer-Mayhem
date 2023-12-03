@@ -12,7 +12,6 @@ createCanvas(1000,400);
 }
 
 function draw() {
-clear();
-background(131, 153, 97);
+background(150, 224, 108);
   image(img, mouseX-50, mouseY-50,100,100);
 }
