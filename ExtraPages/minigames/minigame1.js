@@ -1,4 +1,4 @@
-1let img;
+let img;
 
 function preload() {
   img = loadImage('../../assets/Player.png');
