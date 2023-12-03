@@ -1,6 +1,9 @@
 let img;
+let back;
+
 function preload() {
   img = loadImage('../../assets/Player.png');
+  back = loadImage('../../assets/Grass.png');
 }
 
 
@@ -10,5 +13,6 @@ createCanvas(1000,400)
 
 function draw() {
 clear();
-  image(img, mouseX, mouseY,100,100);
+  image(back,500,200,1000,400);
+  image(img, mouseX-50, mouseY-50,100,100);
 }
