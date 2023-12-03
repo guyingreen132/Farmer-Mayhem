@@ -76,5 +76,8 @@ function updateMousePosition(event) {
 // Event listeners
 window.addEventListener('mousemove', updateMousePosition);
 
+// Append the canvas to the body
+document.body.appendChild(canvas);
+
 // Start the game loop
 update();
