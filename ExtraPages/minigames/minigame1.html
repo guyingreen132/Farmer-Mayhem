@@ -12,6 +12,11 @@
         canvas {
             display: block;
         }
+
+        @font-face {
+            font-family: "Oswald";
+            src: url("../../extra/Oswald.ttf") format("truetype");
+        }
     </style>
     <title>Mouse Chase Game</title>
 </head>
@@ -29,9 +34,9 @@
 
         // Create the chasing shape
         const shape = {
-            x: 500,
-            y: 500,
-            size: 100,
+            x: 50,
+            y: 50,
+            size: 40,
             speed: 3 // Initial speed
         };
 
@@ -79,8 +84,8 @@
                 // Increase speed based on the score
                 shape.speed = 3 + score * 0.01;
 
-                // Display the score
-                ctx.font = "20px Arial";
+                // Display the score using the custom font
+                ctx.font = "20px Oswald, Arial";
                 ctx.fillStyle = "white";
                 ctx.fillText(`Score: ${score.toFixed(0)}`, 20, 30);
 
