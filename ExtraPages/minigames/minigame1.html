@@ -32,7 +32,7 @@
             x: 50,
             y: 50,
             size: 40,
-            speed: 5
+            speed: 3 // Reduced speed
         };
 
         // Game state
@@ -67,19 +67,19 @@
                     alert(`Game Over! You were caught. Your score: ${score}`);
                 }
 
-                // Draw the shape image
+                // Draw the shape image with increased size
                 ctx.drawImage(shapeImage, shape.x - shape.size / 2, shape.y - shape.size / 2, shape.size, shape.size);
 
-                // Increase the size of the shape as the score increases
-                shape.size += 0.01;
+                // Increase the size of the shape more slowly
+                shape.size += 0.005;
 
-                // Update the score
-                score++;
+                // Update the score more slowly
+                score += 0.1;
 
                 // Display the score
                 ctx.font = "20px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText(`Score: ${score}`, 20, 30);
+                ctx.fillText(`Score: ${score.toFixed(0)}`, 20, 30);
 
                 // Request the next frame
                 requestAnimationFrame(update);
