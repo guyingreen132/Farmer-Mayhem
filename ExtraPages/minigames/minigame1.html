@@ -31,12 +31,16 @@
         const shape = {
             x: 50,
             y: 50,
-            size: 20,
+            size: 40, // Adjust the size to match the image dimensions
             speed: 5
         };
 
         // Game state
         let gameOver = false;
+
+        // Load shape image
+        const shapeImage = new Image();
+        shapeImage.src = "../../assets/Sell.png";
 
         // Load background image
         const backgroundImage = new Image();
@@ -62,11 +66,8 @@
                     alert('Game Over! You were caught!');
                 }
 
-                // Draw the shape
-                ctx.fillStyle = 'blue';
-                ctx.beginPath();
-                ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
-                ctx.fill();
+                // Draw the shape image
+                ctx.drawImage(shapeImage, shape.x - shape.size / 2, shape.y - shape.size / 2, shape.size, shape.size);
 
                 // Request the next frame
                 requestAnimationFrame(update);
