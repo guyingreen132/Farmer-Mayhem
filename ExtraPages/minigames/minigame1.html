@@ -38,9 +38,16 @@
         // Game state
         let gameOver = false;
 
+        // Load background image
+        const backgroundImage = new Image();
+        backgroundImage.src = "../../assets/Grass.png";
+
         // Update function
         function update() {
             if (!gameOver) {
+                // Draw background image
+                ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
                 // Calculate the angle to the mouse
                 const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
 
@@ -54,9 +61,6 @@
                     gameOver = true;
                     alert('Game Over! You were caught!');
                 }
-
-                // Clear the canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 // Draw the shape
                 ctx.fillStyle = 'blue';
