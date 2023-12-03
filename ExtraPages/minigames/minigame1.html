@@ -3,19 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mouse Chase Game</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
         }
+
         canvas {
             display: block;
         }
     </style>
+    <title>Mouse Chase Game</title>
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
-    <script src="game.js"></script>
+
+    <script>
+        // Get the canvas and its context
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Create the chasing shape
+        const shape = {
+            x: 50,
+            y: 50,
+            size: 20,
+            speed: 5
+        };
+
+        // Update function
+        function update() {
+            // Calculate the angle to the mouse
+            const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
+
+            // Move the shape towards the mouse
+            shape.x += Math.cos(angle) * shape.speed;
+            shape.y += Math.sin(angle) * shape.speed;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the shape
+            ctx.fillStyle = 'blue';
+            ctx.beginPath();
+            ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Request the next frame
+            requestAnimationFrame(update);
+        }
+
+        // Mouse object to store mouse coordinates
+        const mouse = {
+            x: 0,
+            y: 0
+        };
+
+        // Update mouse coordinates on mousemove
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Start the game loop
+        update();
+    </script>
 </body>
 </html>
+
