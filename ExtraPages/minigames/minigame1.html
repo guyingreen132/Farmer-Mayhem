@@ -35,26 +35,38 @@
             speed: 5
         };
 
+        // Game state
+        let gameOver = false;
+
         // Update function
         function update() {
-            // Calculate the angle to the mouse
-            const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
+            if (!gameOver) {
+                // Calculate the angle to the mouse
+                const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
 
-            // Move the shape towards the mouse
-            shape.x += Math.cos(angle) * shape.speed;
-            shape.y += Math.sin(angle) * shape.speed;
+                // Move the shape towards the mouse
+                shape.x += Math.cos(angle) * shape.speed;
+                shape.y += Math.sin(angle) * shape.speed;
 
-            // Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Check for collision with the mouse
+                const distance = Math.hypot(shape.x - mouse.x, shape.y - mouse.y);
+                if (distance < shape.size) {
+                    gameOver = true;
+                    alert('Game Over! You were caught!');
+                }
 
-            // Draw the shape
-            ctx.fillStyle = 'blue';
-            ctx.beginPath();
-            ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
-            ctx.fill();
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Request the next frame
-            requestAnimationFrame(update);
+                // Draw the shape
+                ctx.fillStyle = 'blue';
+                ctx.beginPath();
+                ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Request the next frame
+                requestAnimationFrame(update);
+            }
         }
 
         // Mouse object to store mouse coordinates
@@ -80,4 +92,3 @@
     </script>
 </body>
 </html>
-
