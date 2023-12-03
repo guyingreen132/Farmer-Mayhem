@@ -29,7 +29,7 @@
         objectImage.src = "../assets/plant.png";
 
         const backgroundImage = new Image();
-        backgroundImage.src = "../assets/Grass.png";
+        backgroundImage.src = "../../assets/Grass.png";
 
         const player = {
             x: 50,
@@ -65,10 +65,6 @@
         }
 
         function update() {
-            // Move object randomly
-            object.x = Math.random() * (canvas.width - object.width);
-            object.y = Math.random() * (canvas.height - object.height);
-
             // Check collision between player and object
             if (
                 player.x < object.x + object.width &&
@@ -77,6 +73,9 @@
                 player.y + player.height > object.y
             ) {
                 score++;
+                // Move object to a new random position
+                object.x = Math.random() * (canvas.width - object.width);
+                object.y = Math.random() * (canvas.height - object.height);
             }
         }
 
