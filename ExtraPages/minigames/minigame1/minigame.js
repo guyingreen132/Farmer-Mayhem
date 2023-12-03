@@ -2,13 +2,27 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 const playerImage = new Image();
-playerImage.src = '../../../../assets/Player.png';
+playerImage.src = '../../../assets/player.png';
 
 const plantImage = new Image();
-plantImage.src = '../../../../assets/plant.png';
+plantImage.src = '../../../assets/plant.png';
 
 const grassImage = new Image();
-grassImage.src = '../../../../assets/Grass.png';
+grassImage.src = '../../../assets/grass.png';
+
+// Wait for all images to load before starting the game loop
+Promise.all([playerImage, plantImage, grassImage].map(img => {
+    return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+    });
+})).then(() => {
+    // Start the game loop once all images are loaded
+    gameLoop();
+}).catch((error) => {
+    console.error("Error loading images:", error);
+});
+
 
 const player = {
     x: canvas.width / 2,
