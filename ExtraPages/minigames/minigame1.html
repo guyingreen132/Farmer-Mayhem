@@ -31,12 +31,13 @@
         const shape = {
             x: 50,
             y: 50,
-            size: 40, // Adjust the size to match the image dimensions
+            size: 40,
             speed: 5
         };
 
         // Game state
         let gameOver = false;
+        let score = 0;
 
         // Load shape image
         const shapeImage = new Image();
@@ -63,11 +64,22 @@
                 const distance = Math.hypot(shape.x - mouse.x, shape.y - mouse.y);
                 if (distance < shape.size) {
                     gameOver = true;
-                    alert('Game Over! You were caught!');
+                    alert(`Game Over! You were caught. Your score: ${score}`);
                 }
 
                 // Draw the shape image
                 ctx.drawImage(shapeImage, shape.x - shape.size / 2, shape.y - shape.size / 2, shape.size, shape.size);
+
+                // Increase the size of the shape as the score increases
+                shape.size += 0.01;
+
+                // Update the score
+                score++;
+
+                // Display the score
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "white";
+                ctx.fillText(`Score: ${score}`, 20, 30);
 
                 // Request the next frame
                 requestAnimationFrame(update);
