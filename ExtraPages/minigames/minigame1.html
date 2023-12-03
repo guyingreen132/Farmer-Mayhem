@@ -7,7 +7,6 @@
         body {
             margin: 0;
             overflow: hidden;
-            cursor: none; /* Hide the default cursor */
         }
 
         canvas {
@@ -25,8 +24,8 @@
     <canvas id="gameCanvas"></canvas>
 
     <!-- Add an audio element for background music -->
-    <audio id="backgroundMusic" loop>
-        <source src="../../extra/Unreal.mp3" type="audio/mp3">
+    <audio id="backgroundMusic" control>
+        <source src="https://ia801001.us.archive.org/26/items/unrealsuperhero3bykenetrezmp3160k/_Unreal%20Super%20Hero%203_%20by%20Kenet%20_%20Rez%28MP3_160K%29.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
@@ -55,29 +54,6 @@
         const shapeImage = new Image();
         shapeImage.src = "../../assets/Sell.png";
 
-        // Load mouse image
-        const mouseImage = new Image();
-        mouseImage.src = "../../assets/Player.png";
-
-        // Set the size of the player after the image has loaded
-        mouseImage.onload = function() {
-            mouseImage.width = 100;
-            mouseImage.height = 100;
-
-            // Wait for other images to load before starting the game
-            Promise.all([shapeImage, backgroundImage].map(img => {
-                return new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = reject;
-                });
-            })).then(() => {
-                // All images have loaded, start the game
-                update();
-            }).catch(error => {
-                console.error("Error loading images:", error);
-            });
-        };
-
         // Load background image
         const backgroundImage = new Image();
         backgroundImage.src = "../../assets/Grass.png";
@@ -89,7 +65,7 @@
                 ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
                 // Calculate the angle to the mouse
-                const angle = Math.atan2(shape.y - mouse.y, shape.x - mouse.x);
+                const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
 
                 // Move the shape towards the mouse with variable speed
                 shape.x += Math.cos(angle) * shape.speed;
@@ -119,9 +95,6 @@
                 ctx.fillStyle = "white";
                 ctx.fillText(`Score: ${score.toFixed(0)}`, 20, 30);
 
-                // Draw the custom mouse cursor
-                ctx.drawImage(mouseImage, mouse.x - mouseImage.width / 2, mouse.y - mouseImage.height / 2);
-
                 // Request the next frame
                 requestAnimationFrame(update);
             }
@@ -150,6 +123,9 @@
             const backgroundMusic = document.getElementById('backgroundMusic');
             backgroundMusic.play();
         }, 1000); // Delay in milliseconds
+
+        // Start the game loop
+        update();
     </script>
 </body>
 </html>
