@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+    <title>Chase Game</title>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const playerImage = new Image();
+        playerImage.src = "../../../assets/Player.png";
+
+        const objectImage = new Image();
+        objectImage.src = "../../../assets/plant.png";
+
+        const backgroundImage = new Image();
+        backgroundImage.src = "../../../assets/Grass.png";
+
+        const player = {
+            x: 50,
+            y: 50,
+            width: 50,
+            height: 50,
+            speed: 5
+        };
+
+        const object = {
+            x: 200,
+            y: 200,
+            width: 50,
+            height: 50
+        };
+
+        let score = 0;
+
+        function draw() {
+            // Draw background
+            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+            // Draw player
+            ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
+
+            // Draw object
+            ctx.drawImage(objectImage, object.x, object.y, object.width, object.height);
+
+            // Display score
+            ctx.fillStyle = "white";
+            ctx.font = "24px Arial";
+            ctx.fillText("Score: " + score, 20, 30);
+        }
+
+        function update() {
+            // Move object randomly
+            object.x = Math.random() * (canvas.width - object.width);
+            object.y = Math.random() * (canvas.height - object.height);
+
+            // Check collision between player and object
+            if (
+                player.x < object.x + object.width &&
+                player.x + player.width > object.x &&
+                player.y < object.y + object.height &&
+                player.y + player.height > object.y
+            ) {
+                score++;
+            }
+        }
+
+        function gameLoop() {
+            draw();
+            update();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function handleKeydown(e) {
+            // Move player based on arrow keys
+            switch (e.key) {
+                case "ArrowUp":
+                    player.y -= player.speed;
+                    break;
+                case "ArrowDown":
+                    player.y += player.speed;
+                    break;
+                case "ArrowLeft":
+                    player.x -= player.speed;
+                    break;
+                case "ArrowRight":
+                    player.x += player.speed;
+                    break;
+            }
+        }
+
+        document.addEventListener("keydown", handleKeydown);
+
+        // Set canvas size
+        canvas.width = 800;
+        canvas.height = 600;
+
+        // Start the game loop
+        gameLoop();
+    </script>
+</body>
+</html>
+
