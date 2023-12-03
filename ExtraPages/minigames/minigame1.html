@@ -7,6 +7,7 @@
         body {
             margin: 0;
             overflow: hidden;
+            cursor: none; /* Hide the default cursor */
         }
 
         canvas {
@@ -22,6 +23,13 @@
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
+
+    <!-- Add an audio element for background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="../../extra/Unreal.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         // Get the canvas and its context
         const canvas = document.getElementById('gameCanvas');
@@ -47,6 +55,10 @@
         const shapeImage = new Image();
         shapeImage.src = "../../assets/Sell.png";
 
+        // Load mouse image
+        const mouseImage = new Image();
+        mouseImage.src = "../../assets/Player.png";
+
         // Load background image
         const backgroundImage = new Image();
         backgroundImage.src = "../../assets/Grass.png";
@@ -58,7 +70,7 @@
                 ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
                 // Calculate the angle to the mouse
-                const angle = Math.atan2(mouse.y - shape.y, mouse.x - shape.x);
+                const angle = Math.atan2(shape.y - mouse.y, shape.x - mouse.x);
 
                 // Move the shape towards the mouse with variable speed
                 shape.x += Math.cos(angle) * shape.speed;
@@ -88,6 +100,9 @@
                 ctx.fillStyle = "white";
                 ctx.fillText(`Score: ${score.toFixed(0)}`, 20, 30);
 
+                // Draw the custom mouse cursor
+                ctx.drawImage(mouseImage, mouse.x - mouseImage.width / 2, mouse.y - mouseImage.height / 2);
+
                 // Request the next frame
                 requestAnimationFrame(update);
             }
@@ -111,9 +126,11 @@
             canvas.height = window.innerHeight;
         });
 
-        // Play the background music
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        backgroundMusic.play();
+        // Play the background music after a short delay to ensure user interaction
+        setTimeout(() => {
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            backgroundMusic.play();
+        }, 1000); // Delay in milliseconds
 
         // Start the game loop
         update();
