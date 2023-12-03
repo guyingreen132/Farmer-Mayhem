@@ -59,6 +59,13 @@
         const mouseImage = new Image();
         mouseImage.src = "../../assets/Player.png";
 
+        // Wait for the mouse image to load
+        mouseImage.onload = () => {
+            // Set the size of the player
+            mouseImage.width = 100;
+            mouseImage.height = 100;
+        };
+
         // Load background image
         const backgroundImage = new Image();
         backgroundImage.src = "../../assets/Grass.png";
