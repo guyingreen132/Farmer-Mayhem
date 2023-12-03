@@ -16,7 +16,7 @@
 
         @font-face {
             font-family: "Oswald";
-            src: url("../../extra/Oswald.ttf") format("truetype");
+            src: url("path/to/your/font/Oswald.ttf") format("truetype");
         }
     </style>
     <title>Mouse Chase Game</title>
@@ -62,6 +62,19 @@
         // Load background image
         const backgroundImage = new Image();
         backgroundImage.src = "../../assets/Grass.png";
+
+        // Wait for images to load before starting the game
+        Promise.all([shapeImage, mouseImage, backgroundImage].map(img => {
+            return new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+        })).then(() => {
+            // All images have loaded, start the game
+            update();
+        }).catch(error => {
+            console.error("Error loading images:", error);
+        });
 
         // Update function
         function update() {
@@ -131,9 +144,6 @@
             const backgroundMusic = document.getElementById('backgroundMusic');
             backgroundMusic.play();
         }, 1000); // Delay in milliseconds
-
-        // Start the game loop
-        update();
     </script>
 </body>
 </html>
