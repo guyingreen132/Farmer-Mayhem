@@ -2,13 +2,13 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 const playerImage = new Image();
-playerImage.src = '../../assets/player.png';
+playerImage.src = '../../../assets/player.png';
 
 const plantImage = new Image();
-plantImage.src = '../../assets/plant.png';
+plantImage.src = '../../../assets/plant.png';
 
 const grassImage = new Image();
-grassImage.src = '../../assets/grass.png';
+grassImage.src = '../../../assets/grass.png';
 
 const player = {
     x: canvas.width / 2,
