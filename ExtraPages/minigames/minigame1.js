@@ -13,6 +13,6 @@ createCanvas(1000,400);
 
 function draw() {
 clear();
-  image(back,-500,-200,0,0);
+background(back, x, y, width, height);
   image(img, mouseX-50, mouseY-50,100,100);
 }
