@@ -121,7 +121,7 @@
                 ctx.fillText(`Score: ${score.toFixed(0)}`, 20, 30);
 
                 // Draw the custom mouse cursor
-                ctx.drawImage(mouseImage, mouse.x - mouseImage.width / 2, mouse.y - mouseImage.height / 2);
+                ctx.drawImage(mouseImage, mouse.x - mouseImage.width / 2, mouse.y - mouseImage.height / 2, 100,100);
 
                 // Request the next frame
                 requestAnimationFrame(update);
