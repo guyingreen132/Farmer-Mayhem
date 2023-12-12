@@ -71,6 +71,7 @@ button {
   border-radius: 50px;
   transition: all 0.4s;
   box-shadow: 0 0 1px 5px rgba(221, 159, 222, 0.39), 0 0 1px 10px rgba(138, 59, 88, 0.1);
+  cursor: pointer;
 }
 
 /* Styling for the fourth button */
@@ -96,4 +97,5 @@ button {
   letter-spacing: 1.3px;
   box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   transition: all .3s;
+  cursor: pointer;
 }
